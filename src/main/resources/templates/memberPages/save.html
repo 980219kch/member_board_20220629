@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
     <h2>회원가입</h2>
@@ -18,4 +19,30 @@
         <input type="submit" value="회원가입">
     </form>
 </body>
+<script th:inline="javascript">
+    const emailDuplicate = () => {
+        const email = document.getElementById("memberEmail").value;
+        const checkResult = document.getElementById("email-check");
+        $.ajax({
+            type: "post",
+            url: "/member/emailCheck",
+            dataType: "text",
+            data: {
+                "memberEmail": email
+            },
+            success: function (result) {
+                if(result == "ok") {
+                    checkResult.innerHTML = "사용 가능한 아이디 입니다.";
+                    checkResult.style.color = "green";
+                } else {
+                    checkResult.innerHTML = "이미 사용중인 아이디 입니다.";
+                    checkResult.style.color = "red";
+                }
+            },
+            error: function () {
+                alert("ajax 실패");
+            }
+        });
+    }
+</script>
 </html>
