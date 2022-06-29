@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .header {
+            display: inline-block;
+        }
+    </style>
+    <div class="header">
+        <span th:if="${session.loginEmail}">
+            <span th:if="${session.loginEmail.toString().equals('admin')}">
+                <a href="#">관리자 페이지</a>
+            </span>
+            <span>
+                <a href="/member/logout">로그아웃</a>
+            </span>
+        </span>
+        <span th:unless="${session.loginEmail}">
+            <a href="/member/login-form">로그인</a>
+        </span>
+        <span>
+            <a href="/board/save-form">글쓰기</a>
+        </span>
+    </div>
+</th:block>
+</html>

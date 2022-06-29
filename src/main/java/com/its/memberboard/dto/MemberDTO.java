@@ -1,5 +1,6 @@
 package com.its.memberboard.dto;
 
+import com.its.memberboard.entity.MemberEntity;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,4 +13,15 @@ public class MemberDTO {
     private String memberMobile;
     private MultipartFile memberProfile;
     private String memberProfileName;
+
+    public static MemberDTO toMemberDTO(MemberEntity loginEntity) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(loginEntity.getId());
+        memberDTO.setMemberEmail(loginEntity.getMemberEmail());
+        memberDTO.setMemberPassword(loginEntity.getMemberPassword());
+        memberDTO.setMemberName(loginEntity.getMemberName());
+        memberDTO.setMemberMobile(loginEntity.getMemberMobile());
+        memberDTO.setMemberProfileName(loginEntity.getMemberProfileName());
+        return memberDTO;
+    }
 }

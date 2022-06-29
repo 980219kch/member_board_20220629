@@ -4,8 +4,10 @@ import com.its.memberboard.dto.MemberDTO;
 import com.its.memberboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -29,5 +31,25 @@ public class MemberController {
     public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail) {
         String checkResult = memberService.emailCheck(memberEmail);
         return checkResult;
+    }
+
+    @GetMapping("/login-form")
+    public String loginForm(@RequestParam(value = "redirectURL", defaultValue = "/") String redirectURL,
+                            Model model) {
+        model.addAttribute("redirectURL", redirectURL);
+        return "memberPages/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session,
+                        @RequestParam(value = "redirectURL", defaultValue = "/") String redirectURL) {
+        MemberDTO loginMember = memberService.login(memberDTO);
+        if(loginMember != null) {
+            session.setAttribute("loginEmail", loginMember.getMemberEmail());
+            session.setAttribute("id", loginMember.getId());
+            return "redirect:" + redirectURL;
+        } else {
+            return "memberPages/login";
+        }
     }
 }
