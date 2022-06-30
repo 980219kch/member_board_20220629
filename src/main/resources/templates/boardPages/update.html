@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<th:block th:replace="commonPages/header :: header"></th:block>
     <h2>update.html</h2>
     <form action="/board/update" name="updateForm" method="post" enctype="multipart/form-data">
         <input type="hidden" th:value="${board.id}" name="id">

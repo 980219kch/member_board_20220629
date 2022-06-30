@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -76,5 +78,18 @@ public class BoardService {
 
     public void update(BoardDTO boardDTO) {
         boardRepository.save(BoardEntity.toUpdateEntity(boardDTO));
+    }
+
+    public void delete(Long id) {
+        boardRepository.deleteById(id);
+    }
+
+    public List<BoardDTO> search(String q) {
+        List<BoardEntity> boardEntityList = boardRepository.findByBoardWriterContainingOrBoardTitleContaining(q,q);
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for(BoardEntity boardEntity: boardEntityList) {
+            boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+        }
+        return boardDTOList;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -60,5 +61,18 @@ public class BoardController {
     public String update(@ModelAttribute BoardDTO boardDTO) {
         boardService.update(boardDTO);
         return "redirect:/board/" + boardDTO.getId();
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        boardService.delete(id);
+        return "redirect:/board";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("q") String q, Model model) {
+        List<BoardDTO> searchList = boardService.search(q);
+        model.addAttribute("boardList", searchList);
+        return "boardPages/search";
     }
 }

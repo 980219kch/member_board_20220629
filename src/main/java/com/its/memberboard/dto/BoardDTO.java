@@ -19,8 +19,8 @@ public class BoardDTO {
     private int boardHits;
     private LocalDateTime boardCreatedDate;
     private MultipartFile boardFile;
-    private String boardFileName;
 
+    private String boardFileName;
     public BoardDTO(Long id, String boardTitle, String boardWriter, int boardHits, LocalDateTime boardCreatedDate) {
         this.id = id;
         this.boardTitle = boardTitle;
