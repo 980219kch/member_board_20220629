@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">회원번호</th>
+            <th scope="col">이메일</th>
+            <th scope="col">비밀번호</th>
+            <th scope="col">이름</th>
+            <th scope="col">전화번호</th>
+            <th scope="col">프로필사진</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member: ${memberList}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.memberEmail}"></td>
+            <td th:text="${member.memberPassword}"></td>
+            <td th:text="${member.memberName}"></td>
+            <td th:text="${member.memberMobile}"></td>
+            <td><img th:src="@{|/upload/${member.memberProfileName}|}" width="30" height="30" alt=""></td>
+            <td><button th:onclick="deleteMember()">삭제</button></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+<script>
+    const deleteMember = () => {
+        location.href = "/member/delete";
+    }
+</script>
+</html>
