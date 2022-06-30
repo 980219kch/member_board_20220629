@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>마이페이지</h2>
+    <form action="/member/update" method="post" name="updateForm" enctype="multipart/form-data">
+        <input type="hidden" th:value="${member.id}" name="id">
+        이메일: <input type="text" th:value="${member.memberEmail}" name="memberEmail" readonly> <br>
+        비밀번호: <input type="text" id="memberPassword" name="memberPassword"> <br>
+        이름: <input type="text" th:value="${member.memberName}" name="memberName"> <br>
+        전화번호: <input type="text" th:value="${member.memberMobile}" name="memberMobile"> <br>
+        프로필사진: <img th:src="@{|/upload/${member.memberProfileName}|}" width="100" height="100" alt="">
+        <input type="file" name="memberProfile"> <br>
+        <input type="button" onclick="pwCheck()" value="정보수정">
+    </form>
+</body>
+<script th:inline="javascript">
+    const pwCheck = () => {
+        const memberPassword = document.getElementById("memberPassword").value;
+        const pw = [[${member.memberPassword}]];
+        if(memberPassword == pw) {
+            updateForm.submit();
+        } else {
+            alert("비밀번호가 틀립니다.");
+        }
+    }
+</script>
+</html>

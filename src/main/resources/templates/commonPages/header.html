@@ -9,9 +9,15 @@
         }
     </style>
     <div class="header">
+        <span>
+            <a href="/">Home</a>
+        </span>
         <span th:if="${session.loginEmail}">
             <span th:if="${session.loginEmail.toString().equals('admin')}">
                 <a href="#">관리자 페이지</a>
+            </span>
+            <span>
+                <a href="/member/my-page">마이페이지</a>
             </span>
             <span>
                 <a href="/member/logout">로그아웃</a>

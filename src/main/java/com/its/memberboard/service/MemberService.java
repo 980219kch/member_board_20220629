@@ -50,4 +50,14 @@ public class MemberService {
             return null;
         }
     }
+
+    public MemberDTO findByMemberEmail(String email) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(email);
+        MemberEntity memberEntity = optionalMemberEntity.get();
+        return MemberDTO.toMemberDTO(memberEntity);
+    }
+
+    public void update(MemberDTO memberDTO) {
+        memberRepository.save(MemberEntity.toUpdateEntity(memberDTO));
+    }
 }

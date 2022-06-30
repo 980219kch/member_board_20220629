@@ -58,4 +58,18 @@ public class MemberController {
         session.invalidate();
         return "index";
     }
+
+    @GetMapping("/my-page")
+    public String myPage(HttpSession session, Model model) {
+        String email = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(email);
+        model.addAttribute("member", memberDTO);
+        return "memberPages/myPage";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "redirect:/board";
+    }
 }
