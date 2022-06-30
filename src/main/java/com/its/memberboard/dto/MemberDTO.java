@@ -1,10 +1,14 @@
 package com.its.memberboard.dto;
 
 import com.its.memberboard.entity.MemberEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberDTO {
     private Long id;
     private String memberEmail;

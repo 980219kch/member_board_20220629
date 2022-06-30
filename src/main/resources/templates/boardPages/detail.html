@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+<body>
+<th:block th:replace="commonPages/header :: header"></th:block>
+    <h2>detail.html</h2>
+    글번호: <span th:text="${board.id}"></span> <br>
+    제목: <span th:text="${board.boardTitle}"></span> <br>
+    작성자: <span th:text="${board.boardWriter}"></span> <br>
+    내용: <span th:text="${board.boardContents}"></span> <br>
+    조회수: <span th:text="${board.boardHits}"></span> <br>
+    작성일자: <span th:text="${board.boardCreatedDate}"></span> <br>
+    첨부파일: <img th:src="@{|/upload/${board.boardFileName}|}" width="100" height="100" alt="">
+</body>
+</html>

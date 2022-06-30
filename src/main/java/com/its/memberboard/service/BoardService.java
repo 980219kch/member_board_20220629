@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -58,5 +59,18 @@ public class BoardService {
                         board.getBoardCreatedDate()
                 ));
         return boardList;
+    }
+
+    @Transactional
+    public BoardDTO findById(Long id) {
+        boardRepository.boardHits(id);
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
+        if(optionalBoardEntity.isPresent()) {
+            BoardEntity boardEntity = optionalBoardEntity.get();
+            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+            return boardDTO;
+        } else {
+            return null;
+        }
     }
 }
