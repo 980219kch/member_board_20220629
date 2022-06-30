@@ -85,4 +85,10 @@ public class MemberController {
         model.addAttribute("memberList", memberDTOList);
         return "memberPages/list";
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        memberService.delete(id);
+        return "redirect:/member/findAll";
+    }
 }

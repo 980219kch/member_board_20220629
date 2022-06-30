@@ -25,14 +25,9 @@
             <td th:text="${member.memberName}"></td>
             <td th:text="${member.memberMobile}"></td>
             <td><img th:src="@{|/upload/${member.memberProfileName}|}" width="30" height="30" alt=""></td>
-            <td><button th:onclick="deleteMember()">삭제</button></td>
+            <td><a th:href="@{|/member/delete/${member.id}|}">삭제</a></td>
         </tr>
         </tbody>
     </table>
 </body>
-<script>
-    const deleteMember = () => {
-        location.href = "/member/delete";
-    }
-</script>
 </html>
