@@ -73,4 +73,8 @@ public class BoardService {
             return null;
         }
     }
+
+    public void update(BoardDTO boardDTO) {
+        boardRepository.save(BoardEntity.toUpdateEntity(boardDTO));
+    }
 }
