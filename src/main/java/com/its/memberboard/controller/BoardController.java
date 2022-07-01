@@ -2,7 +2,9 @@ package com.its.memberboard.controller;
 
 import com.its.memberboard.common.PagingConst;
 import com.its.memberboard.dto.BoardDTO;
+import com.its.memberboard.dto.CommentDTO;
 import com.its.memberboard.service.BoardService;
+import com.its.memberboard.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/save-form")
     public String saveForm() {
@@ -44,9 +47,13 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public String findById(@PathVariable("id") Long id, Model model) {
+    public String findById(@PathVariable("id") Long id, Model model,
+                           @PageableDefault(page = 1) Pageable pageable) {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+        model.addAttribute("page", pageable);
+        List<CommentDTO> commentDTOList = commentService.findAll(id);
+        model.addAttribute("commentList", commentDTOList);
         return "boardPages/detail";
     }
 
